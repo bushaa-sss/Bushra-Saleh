@@ -5,7 +5,7 @@ import magicSmsCover from "@/assets/magic-sms-cover.png";
 import menuVisionArCover from "@/assets/menuvision-ar-cover.png";
 import menuVisionArScreenshot from "@/assets/Screenshot 2026-09-24 091030.png";
 import craftechCover from "@/assets/craftech-cover.png";
-import PulseOpsCover from "@/assets/pulseops-cover.png";
+import PulseOpsCover from "@/assets/PulseOps-cover.png";
 import SafarGooCover from "@/assets/safargo-cover.jpg";
 import CampusConnectAwsCover from "@/assets/campusconnect-cover.png";
 import campus1 from "@/assets/campusconnect/1.png";
