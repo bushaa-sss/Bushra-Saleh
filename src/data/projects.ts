@@ -934,6 +934,200 @@ const projectData: Project[] = [
   //   images: [`${BASE}/assets/ChatGPT%20Image%20May%2016_%202026_%2004_43_30%20AM%20(8)-DeQPUfvQ.png`],
   //   liveUrl: "https://data-forge-scrap.netlify.app/",
   // },
+  {
+  id: "magic-sms",
+  title: "Magic SMS",
+  category: "SaaS Apps",
+  tags: ["REACT", "SMS GATEWAY", "MESSAGING", "ANALYTICS"],
+  year: "2026",
+  client: "Freelance — Live product",
+  status: "LIVE",
+  description:
+    "A bulk messaging platform that connects to an Android SMS gateway, imports contacts from CSV or Excel, and sends templated messages at scale with configurable delays. Includes gateway setup and connection testing, message templates, delivery reports, and daily, weekly, and monthly analytics with export.",
+  coverImage: magicSmsCover,
+  images: [magicSmsCover],
+  liveUrl: "https://magic-sms.netlify.app/",
+  githubUrl: "https://github.com/bushaa-sss/MagicSms/tree/main/magic-bulk-sms-main",
+  caseStudy: {
+    overview:
+      "Magic SMS is a React-based bulk messaging application designed for users who need to send SMS campaigns at scale. The platform connects to an Android SMS gateway (a physical or virtual Android device running a companion app), allowing outbound SMS delivery without traditional telecom APIs. Users import contact lists from CSV/Excel files, compose messages from predefined templates, configure sending delays between messages, and monitor delivery via a real-time analytics dashboard. The application tracks sent vs. delivered counts and generates exportable reports for campaign analysis.",
+    features: [
+      {
+        title: "Android SMS Gateway Integration",
+        description:
+          "Connects to an Android device running a companion SMS gateway app. Gateway receives send commands from Magic SMS and uses the device's SIM card to transmit SMS. Connection established via Cloud Server configuration (IP/hostname, port, credentials)."
+      },
+      {
+        title: "Gateway Setup & Testing",
+        description:
+          "Configuration screen for gateway connection: server address, username, password, and device ID. Test Connection button validates connectivity before sending messages. Displays success/failure status."
+      },
+      {
+        title: "Contact Import",
+        description:
+          "Import contact lists from CSV or Excel files. Expected format: phone numbers (and optional fields like name). Imported contacts stored and managed in the Contacts section."
+      },
+      {
+        title: "Message Templates",
+        description:
+          "Predefined message templates available in the Compose & Send section. Users select a template, which populates the message body. Templates support plain text messages."
+      },
+      {
+        title: "Compose & Send",
+        description:
+          "Select template, choose message type (SMS or MMS), and configure delay between messages (in seconds). Delay prevents throttling and avoids overwhelming the gateway or recipient carriers."
+      },
+      {
+        title: "Message Type Selection",
+        description:
+          "Users can send SMS or MMS messages. Dropdown selector to choose message type before sending."
+      },
+      {
+        title: "Scheduled Sending",
+        description:
+          "Configure delay (in seconds) between each message. For example, 3-second delay between messages sends 20 messages per minute instead of bulk all-at-once."
+      },
+      {
+        title: "Real-Time Analytics",
+        description:
+          "Dashboard displays key metrics: Messages (total queued), Sent (successfully transmitted), and Delivered (confirmed by carrier). Analytics updated as messages are processed."
+      },
+      {
+        title: "Delivery Reports",
+        description:
+          "Track delivery status for each message. Reports show which messages were sent, which were delivered, and which failed."
+      },
+      {
+        title: "Analytics Export",
+        description:
+          "Export analytics data and delivery reports to file format for external analysis or record-keeping."
+      },
+      {
+        title: "Dashboard & Navigation",
+        description:
+          "Left sidebar navigation: Dashboard (overview), Messages (send history), Contacts (imported lists), Templates (message templates), Reports (delivery reports), Settings (gateway config)."
+      }
+    ],
+    architecture: [
+      {
+        title: "React Frontend",
+        description:
+          "Single-page application with sections for gateway setup, contact import, message composition, and analytics dashboard. State management tracks gateway connection status, imported contacts, selected template, and message metrics."
+      },
+      {
+        title: "Gateway Connection Module",
+        description:
+          "HTTP/TCP client that connects to Android SMS gateway using configured server address, port, username, and password. Sends message payloads to gateway for delivery."
+      },
+      {
+        title: "Contact Management",
+        description:
+          "Store imported contacts in local state or browser storage. Display contacts in table, allow search/filter. Track contact count and import history."
+      },
+      {
+        title: "Message Queue",
+        description:
+          "Messages added to queue when user clicks 'Send Messages'. Queue processes messages sequentially with configurable delay between each message to avoid gateway overload."
+      },
+      {
+        title: "Template Storage",
+        description:
+          "Predefined templates stored in application state or backend database. Users select template during message composition."
+      },
+      {
+        title: "Analytics Tracking",
+        description:
+          "Track message state: queued (in queue), sent (transmitted to gateway), delivered (confirmed by carrier). Counters updated as messages progress through states."
+      },
+      {
+        title: "Report Generation",
+        description:
+          "Generate analytics reports as CSV or JSON export. Include message count, sent count, delivery count, timestamp, and delivery status per message."
+      }
+    ],
+    implementation: [
+      {
+        title: "Gateway Connection Flow",
+        description:
+          "User enters server address, port, username, password in Gateway Setup. Clicks 'Test Connection'. Frontend makes HTTP request to backend with credentials. Backend attempts to reach gateway server. Returns success/failure status to UI."
+      },
+      {
+        title: "Contact Import Process",
+        description:
+          "User selects CSV or Excel file. File uploaded to browser, parsed (phone numbers extracted). Contacts stored in React state or sent to backend for persistence. Display import summary (X contacts imported)."
+      },
+      {
+        title: "Message Sending Pipeline",
+        description:
+          "User selects template, chooses message type (SMS/MMS), sets delay (e.g., 3 seconds). Clicks 'Send Messages'. Frontend creates message batch from imported contacts. For each contact: (1) Create message object {phone, template_text, type}. (2) Add to queue. (3) Process queue with delay: send message to gateway, wait delay seconds, process next message. (4) Track sent/delivered status."
+      },
+      {
+        title: "Delay Implementation",
+        description:
+          "After each message is sent to gateway, application waits X seconds before sending the next message. Prevents carrier throttling and distributes load on gateway device."
+      },
+      {
+        title: "Gateway Communication",
+        description:
+          "Each message sent to gateway as JSON payload: {phone_number, message_text, type}. Gateway receives payload, extracts details, uses Android SMS API to send. Response indicates success/queued."
+      },
+      {
+        title: "Analytics Update",
+        description:
+          "Frontend maintains counters for Total Messages, Sent, Delivered. As gateway returns responses, counters increment. Displayed in real-time in Analytics dashboard."
+      },
+      {
+        title: "Report Export",
+        description:
+          "User clicks 'Export Report'. Frontend collects message history and delivery status. Generates CSV: [Phone Number, Message Text, Type, Status (Sent/Delivered/Failed), Timestamp]. Downloaded to user's computer."
+      }
+    ],
+    challenges: [
+      {
+        challenge:
+          "Android SMS gateway device is a single point of failure. If device goes offline, no messages can be sent.",
+        solution:
+          "Test Connection button allows users to verify gateway status before sending. Recommended practice: keep gateway device plugged in and on stable network. For mission-critical needs, customers should deploy multiple gateway devices and configure failover in settings."
+      },
+      {
+        challenge:
+          "SMS carriers rate-limit or block bulk senders. Sending all contacts at once gets flagged as spam.",
+        solution:
+          "Configurable delay between messages (e.g., 3 seconds per message) distributes sending over time. Recommended: 2-5 second delay to stay below carrier throttling thresholds. Users can adjust based on testing with their carrier."
+      },
+      {
+        challenge:
+          "Message delivery status is hard to track. Gateway device reports 'sent' but carrier may delay or fail delivery.",
+        solution:
+          "Displayed two metrics: Sent (accepted by gateway) and Delivered (carrier confirmation). This is realistic—'sent' doesn't guarantee delivery. Users reviewing reports should understand this distinction."
+      },
+      {
+        challenge:
+          "Imported contact lists may have invalid phone numbers (wrong format, wrong length, non-numeric).",
+        solution:
+          "Add import validation: check phone number length and format during import. Flag invalid numbers and show warning before sending. Allow user to filter out invalid numbers before sending campaign."
+      },
+      {
+        challenge:
+          "No persistence between sessions; if user closes browser, message queue and contact list may be lost.",
+        solution:
+          "Store imported contacts and template selections in browser localStorage or IndexedDB. On page reload, restore contact list and templates. Queue state is transient (OK to lose)."
+      },
+      {
+        challenge:
+          "Gateway credentials stored on frontend are exposed in browser memory or local storage.",
+        solution:
+          "Store gateway credentials in browser's encrypted storage or sessionStorage (cleared on logout). Recommend users never reuse gateway passwords. Credentials are only for local gateway connection, not cloud services, so risk is contained."
+      },
+      {
+        challenge:
+          "Large contact lists (10,000+ contacts) cause slow import and memory issues.",
+        solution:
+          "For current MVP: acceptable limit is 1,000-5,000 contacts. Larger lists recommended for backend processing in future. For now, document the limit and advise users to split large campaigns into batches."
+      }
+    ]
+  }
+},
  {
   id: "magic-mail",
   title: "Magic Mail",
@@ -1145,200 +1339,7 @@ const projectData: Project[] = [
     ]
   }
 },
-{
-  id: "magic-sms",
-  title: "Magic SMS",
-  category: "SaaS Apps",
-  tags: ["REACT", "SMS GATEWAY", "MESSAGING", "ANALYTICS"],
-  year: "2026",
-  client: "Freelance — Live product",
-  status: "LIVE",
-  description:
-    "A bulk messaging platform that connects to an Android SMS gateway, imports contacts from CSV or Excel, and sends templated messages at scale with configurable delays. Includes gateway setup and connection testing, message templates, delivery reports, and daily, weekly, and monthly analytics with export.",
-  coverImage: magicSmsCover,
-  images: [magicSmsCover],
-  liveUrl: "https://magic-sms.netlify.app/",
-  githubUrl: "https://github.com/bushaa-sss/MagicSms/tree/main/magic-bulk-sms-main",
-  caseStudy: {
-    overview:
-      "Magic SMS is a React-based bulk messaging application designed for users who need to send SMS campaigns at scale. The platform connects to an Android SMS gateway (a physical or virtual Android device running a companion app), allowing outbound SMS delivery without traditional telecom APIs. Users import contact lists from CSV/Excel files, compose messages from predefined templates, configure sending delays between messages, and monitor delivery via a real-time analytics dashboard. The application tracks sent vs. delivered counts and generates exportable reports for campaign analysis.",
-    features: [
-      {
-        title: "Android SMS Gateway Integration",
-        description:
-          "Connects to an Android device running a companion SMS gateway app. Gateway receives send commands from Magic SMS and uses the device's SIM card to transmit SMS. Connection established via Cloud Server configuration (IP/hostname, port, credentials)."
-      },
-      {
-        title: "Gateway Setup & Testing",
-        description:
-          "Configuration screen for gateway connection: server address, username, password, and device ID. Test Connection button validates connectivity before sending messages. Displays success/failure status."
-      },
-      {
-        title: "Contact Import",
-        description:
-          "Import contact lists from CSV or Excel files. Expected format: phone numbers (and optional fields like name). Imported contacts stored and managed in the Contacts section."
-      },
-      {
-        title: "Message Templates",
-        description:
-          "Predefined message templates available in the Compose & Send section. Users select a template, which populates the message body. Templates support plain text messages."
-      },
-      {
-        title: "Compose & Send",
-        description:
-          "Select template, choose message type (SMS or MMS), and configure delay between messages (in seconds). Delay prevents throttling and avoids overwhelming the gateway or recipient carriers."
-      },
-      {
-        title: "Message Type Selection",
-        description:
-          "Users can send SMS or MMS messages. Dropdown selector to choose message type before sending."
-      },
-      {
-        title: "Scheduled Sending",
-        description:
-          "Configure delay (in seconds) between each message. For example, 3-second delay between messages sends 20 messages per minute instead of bulk all-at-once."
-      },
-      {
-        title: "Real-Time Analytics",
-        description:
-          "Dashboard displays key metrics: Messages (total queued), Sent (successfully transmitted), and Delivered (confirmed by carrier). Analytics updated as messages are processed."
-      },
-      {
-        title: "Delivery Reports",
-        description:
-          "Track delivery status for each message. Reports show which messages were sent, which were delivered, and which failed."
-      },
-      {
-        title: "Analytics Export",
-        description:
-          "Export analytics data and delivery reports to file format for external analysis or record-keeping."
-      },
-      {
-        title: "Dashboard & Navigation",
-        description:
-          "Left sidebar navigation: Dashboard (overview), Messages (send history), Contacts (imported lists), Templates (message templates), Reports (delivery reports), Settings (gateway config)."
-      }
-    ],
-    architecture: [
-      {
-        title: "React Frontend",
-        description:
-          "Single-page application with sections for gateway setup, contact import, message composition, and analytics dashboard. State management tracks gateway connection status, imported contacts, selected template, and message metrics."
-      },
-      {
-        title: "Gateway Connection Module",
-        description:
-          "HTTP/TCP client that connects to Android SMS gateway using configured server address, port, username, and password. Sends message payloads to gateway for delivery."
-      },
-      {
-        title: "Contact Management",
-        description:
-          "Store imported contacts in local state or browser storage. Display contacts in table, allow search/filter. Track contact count and import history."
-      },
-      {
-        title: "Message Queue",
-        description:
-          "Messages added to queue when user clicks 'Send Messages'. Queue processes messages sequentially with configurable delay between each message to avoid gateway overload."
-      },
-      {
-        title: "Template Storage",
-        description:
-          "Predefined templates stored in application state or backend database. Users select template during message composition."
-      },
-      {
-        title: "Analytics Tracking",
-        description:
-          "Track message state: queued (in queue), sent (transmitted to gateway), delivered (confirmed by carrier). Counters updated as messages progress through states."
-      },
-      {
-        title: "Report Generation",
-        description:
-          "Generate analytics reports as CSV or JSON export. Include message count, sent count, delivery count, timestamp, and delivery status per message."
-      }
-    ],
-    implementation: [
-      {
-        title: "Gateway Connection Flow",
-        description:
-          "User enters server address, port, username, password in Gateway Setup. Clicks 'Test Connection'. Frontend makes HTTP request to backend with credentials. Backend attempts to reach gateway server. Returns success/failure status to UI."
-      },
-      {
-        title: "Contact Import Process",
-        description:
-          "User selects CSV or Excel file. File uploaded to browser, parsed (phone numbers extracted). Contacts stored in React state or sent to backend for persistence. Display import summary (X contacts imported)."
-      },
-      {
-        title: "Message Sending Pipeline",
-        description:
-          "User selects template, chooses message type (SMS/MMS), sets delay (e.g., 3 seconds). Clicks 'Send Messages'. Frontend creates message batch from imported contacts. For each contact: (1) Create message object {phone, template_text, type}. (2) Add to queue. (3) Process queue with delay: send message to gateway, wait delay seconds, process next message. (4) Track sent/delivered status."
-      },
-      {
-        title: "Delay Implementation",
-        description:
-          "After each message is sent to gateway, application waits X seconds before sending the next message. Prevents carrier throttling and distributes load on gateway device."
-      },
-      {
-        title: "Gateway Communication",
-        description:
-          "Each message sent to gateway as JSON payload: {phone_number, message_text, type}. Gateway receives payload, extracts details, uses Android SMS API to send. Response indicates success/queued."
-      },
-      {
-        title: "Analytics Update",
-        description:
-          "Frontend maintains counters for Total Messages, Sent, Delivered. As gateway returns responses, counters increment. Displayed in real-time in Analytics dashboard."
-      },
-      {
-        title: "Report Export",
-        description:
-          "User clicks 'Export Report'. Frontend collects message history and delivery status. Generates CSV: [Phone Number, Message Text, Type, Status (Sent/Delivered/Failed), Timestamp]. Downloaded to user's computer."
-      }
-    ],
-    challenges: [
-      {
-        challenge:
-          "Android SMS gateway device is a single point of failure. If device goes offline, no messages can be sent.",
-        solution:
-          "Test Connection button allows users to verify gateway status before sending. Recommended practice: keep gateway device plugged in and on stable network. For mission-critical needs, customers should deploy multiple gateway devices and configure failover in settings."
-      },
-      {
-        challenge:
-          "SMS carriers rate-limit or block bulk senders. Sending all contacts at once gets flagged as spam.",
-        solution:
-          "Configurable delay between messages (e.g., 3 seconds per message) distributes sending over time. Recommended: 2-5 second delay to stay below carrier throttling thresholds. Users can adjust based on testing with their carrier."
-      },
-      {
-        challenge:
-          "Message delivery status is hard to track. Gateway device reports 'sent' but carrier may delay or fail delivery.",
-        solution:
-          "Displayed two metrics: Sent (accepted by gateway) and Delivered (carrier confirmation). This is realistic—'sent' doesn't guarantee delivery. Users reviewing reports should understand this distinction."
-      },
-      {
-        challenge:
-          "Imported contact lists may have invalid phone numbers (wrong format, wrong length, non-numeric).",
-        solution:
-          "Add import validation: check phone number length and format during import. Flag invalid numbers and show warning before sending. Allow user to filter out invalid numbers before sending campaign."
-      },
-      {
-        challenge:
-          "No persistence between sessions; if user closes browser, message queue and contact list may be lost.",
-        solution:
-          "Store imported contacts and template selections in browser localStorage or IndexedDB. On page reload, restore contact list and templates. Queue state is transient (OK to lose)."
-      },
-      {
-        challenge:
-          "Gateway credentials stored on frontend are exposed in browser memory or local storage.",
-        solution:
-          "Store gateway credentials in browser's encrypted storage or sessionStorage (cleared on logout). Recommend users never reuse gateway passwords. Credentials are only for local gateway connection, not cloud services, so risk is contained."
-      },
-      {
-        challenge:
-          "Large contact lists (10,000+ contacts) cause slow import and memory issues.",
-        solution:
-          "For current MVP: acceptable limit is 1,000-5,000 contacts. Larger lists recommended for backend processing in future. For now, document the limit and advise users to split large campaigns into batches."
-      }
-    ]
-  }
-},
+
   {
   id: "menuvision-ar",
   title: "MenuVision AR",
