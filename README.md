@@ -2,7 +2,7 @@
 
 # Bushra Saleh
 
-### Web Developer · Full-Stack Builder · UI / UX Designer
+### SOFTWARE DEVELOPER  |  FULL-STACK & MOBILE  |  JAVASCRIPT
 
 An expressive portfolio for thoughtful digital products, detailed case studies, and
 interfaces that are made to be used.
