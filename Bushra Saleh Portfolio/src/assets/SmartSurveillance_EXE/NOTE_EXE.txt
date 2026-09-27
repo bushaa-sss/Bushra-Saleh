@@ -1,0 +1,4 @@
+﻿SmartSurveillance.exe -- Compiled with PyInstaller.
+Requires _internal/ folder to run on another PC.
+Full runnable EXE excluded from ZIP to meet upload size limit.
+To run the app use the Python source method in README.md.
