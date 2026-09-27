@@ -3,7 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { Mail, Phone, Github, Linkedin, FileDown, ArrowUpRight } from "lucide-react";
 import { RESUME_URL } from "@/data/projects";
 import contactPortrait from "@/assets/contact.png";
-
+import resume from "@/assets/Bushra Saleh.pdf";
 const Contact = () => {
   return (
     <Layout showEchelonFooter>
@@ -57,7 +57,7 @@ const Contact = () => {
                   { icon: Phone, label: "0334 9048577", href: "tel:03349048577" },
                   { icon: Github, label: "GitHub", href: "https://github.com/bushaa-sss", external: true },
                   { icon: Linkedin, label: "Bushra Saleh", href: "https://www.linkedin.com/in/bushra-saleh-239b36146/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BEuGCqnfKQmOLj0KDJId%2FCA%3D%3D", external: true },
-                  { icon: FileDown, label: "Download resume", href: RESUME_URL, external: true },
+                  { icon: FileDown, label: "Download resume", href: resume, external: true },
                 ].map((item) => (
                   <a
                     key={item.label}
