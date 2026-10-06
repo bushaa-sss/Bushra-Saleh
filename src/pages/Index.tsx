@@ -16,6 +16,8 @@ const HERO_IMAGES = [PORTRAIT_URL];
 
 const MARQUEE_ITEMS = [
   "Web Developer",
+  "Software Developer",
+  "Full-Stack Developer",
   "UI & UX Designer",
   "React",
   "Next.js",
@@ -68,7 +70,7 @@ const Index = () => {
   };
 
   useEffect(() => {
-    document.title = "Bushra Saleh — Web Developer & UI / UX Designer";
+    document.title = "Bushra Saleh — Software Developer | Full-Stack & Mobile";
   }, []);
 
   return (
